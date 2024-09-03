@@ -36,6 +36,14 @@ namespace WebAtividadeEntrevista.Controllers
             }
 
             BoCliente bo = new BoCliente();
+            if (bo.VerificarExistencia(model.CPF))
+            {
+                List<string> erros = new List<string>();
+                erros.Add("O CPF: " + model.CPF + ", já existe na base");
+
+                Response.StatusCode = 400;
+                return Json(string.Join(Environment.NewLine, erros));
+            }
 
             if (!this.ModelState.IsValid)
             {
@@ -81,6 +89,10 @@ namespace WebAtividadeEntrevista.Controllers
             }
 
             BoCliente bo = new BoCliente();
+
+           
+
+            
 
             if (!this.ModelState.IsValid)
             {

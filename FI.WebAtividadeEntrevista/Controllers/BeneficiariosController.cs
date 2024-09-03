@@ -36,11 +36,22 @@ namespace FI.WebAtividadeEntrevista.Controllers
 
 
             BoBeneficiario boBeneficiario = new BoBeneficiario();
+            if (boBeneficiario.VerificarExistencia(CPF))
+                return RedirectToAction("Index", "Beneficiarios", new { mensagem = "CPF ja existe na base de dados" });
+
+
             Beneficiario beneficiario = new Beneficiario();
             beneficiario.NOME = Nome;
             beneficiario.CPF = CPF;
             //OBS:abaixo hardcoded pois no momento do cadastro como sugerido no teste não tenho o idcliente para passar
-            beneficiario.IDCLIENTE = 1; 
+            beneficiario.IDCLIENTE = 1;
+
+
+
+          
+
+
+
             boBeneficiario.Incluir(beneficiario);
 
             return RedirectToAction("Index", "Beneficiarios");
