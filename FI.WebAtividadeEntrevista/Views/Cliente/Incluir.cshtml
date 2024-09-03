@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Cadastrar Cliente";
+}
+@section scripts{
+    <script>
+        var urlPost = '@Url.Action("Incluir", "Cliente", new { area = "" })';
+    </script>
+    @Scripts.Render("~/bundles/clientes")
+}
+<h2>@Html.Raw(ViewBag.Title)</h2>
+@Html.Partial("Forms")
+
+<button type="button" onclick="showBeneficiariosDialog(1)" class="btn btn-sm btn-primary">Beneficiários</button>
+
+<div id="targetDiv" name="targetDiv"></div>

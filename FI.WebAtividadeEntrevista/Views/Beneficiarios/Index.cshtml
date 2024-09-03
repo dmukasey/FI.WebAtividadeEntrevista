@@ -1,0 +1,140 @@
+﻿
+@model List<FI.AtividadeEntrevista.DML.Beneficiario>
+
+@{
+    ViewBag.Title = "Beneficiarios";
+    Layout = null;
+
+    if (ViewBag.Mensagem != null)
+    {
+        <script>alert("@ViewBag.Mensagem")</script>
+    }
+
+}
+
+
+
+<script>
+    function sendFormItem(action, formName) {
+
+        if (action == "excluir") {
+            document.forms[formName].action = "Beneficiarios/Excluir"
+        }
+        else {
+            document.forms[formName].action = "Beneficiarios/Alterar"
+        }
+
+
+
+        document.forms[formName].submit();
+    }
+</script>
+
+<style>
+    .hideID {
+        display: none;
+    }
+</style>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
+
+@Scripts.Render("~/bundles/modernizr")
+
+
+
+<form id="formCadastroBeneficiario" method="post" action="Beneficiarios/Incluir">
+
+    <div class="row">
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label for="CPF">CPF:</label>
+                <input required="required" type="text" class="form-control " id="CPF" name="CPF" placeholder="Ex.: 010.011.111-00" maxlength="14">
+            </div>
+        </div>
+        &nbsp; &nbsp; &nbsp;
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label for="Nome">Nome:</label>
+                <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: Maria" maxlength="50">
+            </div>
+        </div>
+
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" id="btnSubmit" value="Incluir">
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+
+
+            <table class="table">
+                <tr>
+
+                    <th>
+                        CPF
+                    </th>
+                    <th>
+                        NOME
+                    </th>
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    var formName = "frm" + item.ID;
+                    var hdName = "hd" + item.ID;
+
+                    <form method="post" name="@formName" action="">
+
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="ID" value="@item.ID" class="form-control" />
+                    <tr>
+                        <td>
+                            <input type="text" name="CPF" value="@item.CPF" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" name="NOME" value="@item.NOME" class="form-control" />
+                        </td>
+                        <td>
+
+                            <input type="button" id="btnAlterar" onclick="sendFormItem('alterar','@formName')" name="btnAlterar" value="Alterar" class="btn btn-primary" />
+                            <input type="button" id="btnExcluir" onclick="sendFormItem('excluir','@formName')" name="btnExcluir" value="Excluir" class="btn btn-primary" />
+
+                        </td>
+
+                    </tr>
+                    </form>
+                }
+
+            </table>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
